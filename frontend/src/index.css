@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #f0f2f5;
+}
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+  gap: 2rem;
+}
+.form-container h1 {
+  font-size: 3rem;
+  color: #26a69a;
+  letter-spacing: 3px;
+}
+.form-container p {
+  font-size: 1.5rem;
+  width: 50%;
+  text-align: center;
+  color: gray;
+}
+.form {
+  width: 70%;
+  padding: 3rem 5rem;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+.form label {
+  width: 100%;
+  text-align: start;
+  color: gray;
+}
+#name {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+#name:focus {
+  outline: none;
+}
+.form input[type="submit"] {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #26a69a;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 10px;
+  background: #26a69a;
+}
+.chat-container {
+  height: 100vh;
+  padding: 2rem;
+}
+.paper {
+  background-color: #fff;
+  height: 100%;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  display: flex;
+}
+.conv {
+  flex: 1;
+  max-width: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.conv-item {
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+.conv-item h4 {
+  text-transform: capitalize;
+}
+.conv-item p {
+  color: gray;
+}
+.conv-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.disc {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #d2d8e2;
+}
+.disc-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  background-color: #f0f2f5;
+}
+.disc-msgs {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+}
+
+.message {
+  background-color: #26a69a;
+  padding: 0.7rem;
+  width: fit-content;
+  max-width: 50%;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+.owner {
+  background-color: #f0f2f5;
+  margin-left: auto;
+}
+.disc-send form {
+  padding: 1rem;
+}
+.disc-send form input {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f0f2f5;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+@media (max-width: 900px) {
+  .conv .conv-img {
+    display: none;
+  }
+}
