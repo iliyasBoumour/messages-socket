@@ -1,8 +1,19 @@
 import React from "react";
 
-const Conversation = ({ userID, username, image, onClick, lastMessage }) => {
+const Conversation = ({
+  userID,
+  username,
+  image,
+  onClick,
+  hasNewMessages,
+  current,
+}) => {
   return (
-    <div className="conv-item" onClick={() => onClick({ userID, username })}>
+    <div
+      className={`conv-item ${current ? "active" : ""} `}
+      onClick={() => onClick(userID)}
+    >
+      {hasNewMessages && <div className="badge"></div>}
       <img
         src={image || "/images/avatar.png"}
         alt={username}

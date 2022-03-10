@@ -1,14 +1,19 @@
 import { useState } from "react";
 import socket from "../utils/socket";
 
-const Discussion = ({ userID, username }) => {
-  const [messages, setMessages] = useState([]);
+const Discussion = ({
+  userID,
+  username,
+  socketID,
+  messages,
+  connected,
+  emitMessage,
+}) => {
   const [msg, setMsg] = useState("");
   const sendMessage = (e) => {
     e.preventDefault();
     if (msg) {
-      socket.emit("private message", { msg, to: userID });
-      setMessages([...messages, { msg, to: userID }]);
+      emitMessage(msg, socketID, userID);
       setMsg("");
     }
   };
@@ -17,11 +22,14 @@ const Discussion = ({ userID, username }) => {
       <div className="disc-info">
         <img className="conv-img" src="/images/avatar.png" alt={username} />
         <h3>{username}</h3>
-        <p>{"Online"}</p>
+        <p>{connected ? "Online" : "Offline"}</p>
       </div>
       <div className="disc-msgs">
         {messages.map((m, i) => (
-          <p key={i} className={`message ${m.to !== socket.id ? "owner" : ""}`}>
+          <p
+            key={i}
+            className={`message ${m.from === socket.id ? "owner" : ""}`}
+          >
             {m.msg}
           </p>
         ))}

@@ -1,16 +1,15 @@
 const io = require("./index");
 
-const list = [{ task: "create a webite", time: Date.now() }];
-const getList = () => list.reverse();
-
 // we register a middleware which checks the username and allows the connection
 io.use((socket, next) => {
   const username = socket.handshake.auth.name;
+  const id = Date.now();
   if (!username) {
     return next(new Error("invalid username"));
   }
   // The username is added as an attribute of the socket object
   socket.username = username;
+  socket.userID = Date.now();
   next();
 });
 
@@ -24,7 +23,8 @@ io.on("connection", (socket) => {
     // socket id and the attribute that we added
     console.log(id, socket.username);
     users.push({
-      userID: id,
+      socketID: id,
+      userID: socket.userID,
       username: socket.username,
     });
   }
@@ -32,12 +32,14 @@ io.on("connection", (socket) => {
 
   // notify existing users when someone connected
   socket.broadcast.emit("user connected", {
-    userID: socket.id,
+    socketID: socket.id,
+    userID: socket.userID,
     username: socket.username,
   });
 
   // on sending a private message
   socket.on("private message", (msg) => {
     console.log(msg);
+    socket.to(msg.to).emit("private message", msg);
   });
 });

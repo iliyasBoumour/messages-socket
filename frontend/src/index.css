@@ -6,6 +6,10 @@
 body {
   background-color: #f0f2f5;
 }
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
 .form-container {
   min-height: 100vh;
   display: flex;
@@ -64,6 +68,14 @@ body {
 .chat-container {
   height: 100vh;
   padding: 2rem;
+  position: relative;
+}
+.chat-container button {
+  position: absolute;
+  top: 5px;
+  background: none;
+  outline: none;
+  border: none;
 }
 .paper {
   background-color: #fff;
@@ -83,6 +95,23 @@ body {
   align-items: center;
   gap: 1rem;
   cursor: pointer;
+  position: relative;
+}
+.conv-item:hover,
+.conv-item.active {
+  transition: all ease-in-out 0.3s;
+  background: #d2d8e2;
+}
+.badge {
+  position: absolute;
+  z-index: 10;
+  background-color: #26a69a;
+  border-radius: 50%;
+  padding: 2px;
+  width: 15px;
+  height: 15px;
+  left: 2px;
+  top: 2px;
 }
 .conv-item h4 {
   text-transform: capitalize;
