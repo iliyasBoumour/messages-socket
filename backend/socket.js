@@ -9,7 +9,7 @@ io.use((socket, next) => {
   }
   // The username is added as an attribute of the socket object
   socket.username = username;
-  socket.userID = Date.now();
+  // socket.userID = Date.now();
   next();
 });
 
@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
     console.log(id, socket.username);
     users.push({
       socketID: id,
-      userID: socket.userID,
+      // userID: socket.userID,
       username: socket.username,
     });
   }
@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
   // notify existing users when someone connected
   socket.broadcast.emit("user connected", {
     socketID: socket.id,
-    userID: socket.userID,
+    // userID: socket.userID,
     username: socket.username,
   });
 

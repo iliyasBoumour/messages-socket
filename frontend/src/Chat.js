@@ -31,10 +31,7 @@ import socket from "./utils/socket";
 const Chat = () => {
   const [users, setUsers] = useState([]);
   const [currentConv, setCurrentConv] = useState(null);
-  const { state, dispatch } = useContext(Store);
-  // const {
-  //   auth: { user },
-  // } = state;
+  const { dispatch } = useContext(Store);
   const initUser = (user) => {
     user.messages = [];
     user.hasNewMessages = false;
@@ -72,7 +69,7 @@ const Chat = () => {
     };
   }, [currentConv, users]);
 
-  const emitMessage = (msg, socketID, userID) => {
+  const emitMessage = (msg, socketID) => {
     //TODO  change from
     const message = { msg, to: socketID, from: socket.id };
     socket.emit("private message", message);
@@ -89,7 +86,7 @@ const Chat = () => {
   };
 
   const openConv = (user) => {
-    const cc = users.find((c) => c.userID === user);
+    const cc = users.find((c) => c.socketID === user);
     cc.hasNewMessages = false;
     setCurrentConv(cc);
   };
@@ -102,7 +99,7 @@ const Chat = () => {
             <Conversation
               key={i}
               onClick={openConv}
-              current={currentConv?.userID === user.userID}
+              current={currentConv?.socketID === user.socketID}
               {...user}
             />
           ))}

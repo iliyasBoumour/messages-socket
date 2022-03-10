@@ -2,7 +2,6 @@ import { useState } from "react";
 import socket from "../utils/socket";
 
 const Discussion = ({
-  userID,
   username,
   socketID,
   messages,
@@ -13,7 +12,7 @@ const Discussion = ({
   const sendMessage = (e) => {
     e.preventDefault();
     if (msg) {
-      emitMessage(msg, socketID, userID);
+      emitMessage(msg, socketID);
       setMsg("");
     }
   };
