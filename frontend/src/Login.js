@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Store } from "./utils/store";
 import socket from "./utils/socket";
@@ -8,29 +8,33 @@ const Login = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(Store);
 
-  const openSocketConnection = () => {
-    socket.auth = { name };
-    socket.connect();
-  };
-  socket.on("connect_error", (err) => {
-    if (err.message === "invalid username") {
-      dispatch({ type: "USER_LOGOUT" });
-    }
-  });
+  useEffect(() => {
+    socket.on("connect_error", (err) => {
+      console.log("connect error");
+      if (err.message === "invalid username") {
+        dispatch({ type: "USER_LOGOUT" });
+      }
+    });
+    socket.on("session", (credentials) => {
+      socket.auth = { sessionID: credentials.sessionID };
+      socket.user = credentials.userID;
+      dispatch({
+        type: "USER_LOGIN",
+        payload: credentials,
+      });
+    });
+
+    return () => {
+      socket.off("connect_error");
+    };
+  }, [dispatch]);
 
   const submit = (e) => {
     e.preventDefault();
     if (name) {
-      dispatch({
-        type: "USER_LOGIN",
-        payload: {
-          id: window.id,
-          name,
-        },
-      });
+      socket.auth = { name };
+      socket.connect();
       setName("");
-      openSocketConnection();
-      window.id++;
       return navigate("/");
     }
   };

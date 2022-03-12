@@ -1,7 +1,7 @@
 import React from "react";
 
 const Conversation = ({
-  socketID,
+  userID,
   username,
   image,
   onClick,
@@ -11,7 +11,7 @@ const Conversation = ({
   return (
     <div
       className={`conv-item ${current ? "active" : ""} `}
-      onClick={() => onClick(socketID)}
+      onClick={() => onClick(userID)}
     >
       {hasNewMessages && <div className="badge"></div>}
       <img

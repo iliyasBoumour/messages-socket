@@ -3,7 +3,6 @@ const io = require("./index");
 // we register a middleware which checks the username and allows the connection
 io.use((socket, next) => {
   const username = socket.handshake.auth.name;
-  const id = Date.now();
   if (!username) {
     return next(new Error("invalid username"));
   }
@@ -23,7 +22,7 @@ io.on("connection", (socket) => {
     // socket id and the attribute that we added
     console.log(id, socket.username);
     users.push({
-      socketID: id,
+      userID: id,
       // userID: socket.userID,
       username: socket.username,
     });
@@ -32,14 +31,12 @@ io.on("connection", (socket) => {
 
   // notify existing users when someone connected
   socket.broadcast.emit("user connected", {
-    socketID: socket.id,
-    // userID: socket.userID,
+    userID: socket.id,
     username: socket.username,
   });
 
   // on sending a private message
   socket.on("private message", (msg) => {
-    console.log(msg);
     socket.to(msg.to).emit("private message", msg);
   });
 });

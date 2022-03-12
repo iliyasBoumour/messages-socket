@@ -1,18 +1,12 @@
 import { useState } from "react";
 import socket from "../utils/socket";
 
-const Discussion = ({
-  username,
-  socketID,
-  messages,
-  connected,
-  emitMessage,
-}) => {
+const Discussion = ({ username, userID, messages, connected, emitMessage }) => {
   const [msg, setMsg] = useState("");
   const sendMessage = (e) => {
     e.preventDefault();
     if (msg) {
-      emitMessage(msg, socketID);
+      emitMessage(msg, userID);
       setMsg("");
     }
   };
@@ -24,10 +18,10 @@ const Discussion = ({
         <p>{connected ? "Online" : "Offline"}</p>
       </div>
       <div className="disc-msgs">
-        {messages.map((m, i) => (
+        {messages?.map((m, i) => (
           <p
             key={i}
-            className={`message ${m.from === socket.id ? "owner" : ""}`}
+            className={`message ${m.from === socket.user ? "owner" : ""}`}
           >
             {m.msg}
           </p>

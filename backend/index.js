@@ -16,4 +16,4 @@ module.exports = new Server(server, {
     origin: "http://localhost:3000",
   },
 });
-require("./socket");
+require("./socket-2/socket-2");
